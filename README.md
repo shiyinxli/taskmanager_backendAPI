@@ -18,3 +18,11 @@ Backend REST API built with Spring Boot for managing tasks.
 1. Clone the repository
 2. Run the application
 3. Access: http://localhost:8080
+
+## API Endpoints
+
+### Create Task
+POST /api/tasks
+
+### Get All Tasks
+GET /api/tasks

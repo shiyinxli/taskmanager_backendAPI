@@ -1,0 +1,13 @@
+### Create Task
+POST http://localhost:8080/api/tasks
+Content-Type: application/json
+
+{
+  "title": "Learn Spring Boot",
+  "description": "Build first backend project",
+  "status": "TODO",
+  "dueDate": "2026-05-10"
+}
+
+### Get Tasks
+GET http://localhost:8080/api/tasks
