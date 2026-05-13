@@ -1,5 +1,7 @@
 package com.shiyinxli.taskmanager.service.impl;
 
+import com.shiyinxli.taskmanager.dto.TaskRequest;
+import com.shiyinxli.taskmanager.dto.TaskResponse;
 import com.shiyinxli.taskmanager.entity.Task;
 import com.shiyinxli.taskmanager.repository.TaskRepository;
 import com.shiyinxli.taskmanager.service.TaskService;
@@ -14,12 +16,32 @@ public class TaskServiceImpl implements TaskService {
     private final TaskRepository taskRepository;
 
     @Override
-    public Task createTask(Task task){
-        return taskRepository.save(task);
+    public TaskResponse createTask(TaskRequest request){
+        Task task = Task.builder()
+                .title(request.getTitle())
+                .description(request.getDescription())
+                .status(request.getStatus())
+                .dueDate(request.getDueDate())
+                .build();
+
+        Task saved = taskRepository.save(task);
+        return mapToResponse(saved);
     }
 
     @Override
-    public List<Task> getAllTasks(){
-        return taskRepository.findAll();
+    public List<TaskResponse> getAllTasks(){
+        return taskRepository.findAll()
+                .stream()
+                .map(this::mapToResponse)
+                .toList();
+    }
+    private TaskResponse mapToResponse(Task task){
+        return TaskResponse.builder()
+                .id(task.getId())
+                .title(task.getTitle())
+                .description(task.getDescription())
+                .status(task.getStatus())
+                .dueDate(task.getDueDate())
+                .build();
     }
 }
