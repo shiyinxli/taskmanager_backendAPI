@@ -1,7 +1,10 @@
 package com.shiyinxli.taskmanager.controller;
 
+import com.shiyinxli.taskmanager.dto.TaskRequest;
+import com.shiyinxli.taskmanager.dto.TaskResponse;
 import com.shiyinxli.taskmanager.entity.Task;
 import com.shiyinxli.taskmanager.service.TaskService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,12 +17,12 @@ public class TaskController {
     private final TaskService taskService;
 
     @PostMapping
-    public Task createTask(@RequestBody Task task){
-        return taskService.createTask(task);
+    public TaskResponse createTask(@Valid @RequestBody TaskRequest request){
+        return taskService.createTask(request);
     }
 
     @GetMapping
-    public List<Task> getAllTasks(){
+    public List<TaskResponse> getAllTasks(){
         return taskService.getAllTasks();
     }
 }
