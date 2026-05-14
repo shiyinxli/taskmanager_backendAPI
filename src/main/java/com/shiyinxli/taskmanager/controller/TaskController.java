@@ -3,6 +3,7 @@ package com.shiyinxli.taskmanager.controller;
 import com.shiyinxli.taskmanager.dto.TaskRequest;
 import com.shiyinxli.taskmanager.dto.TaskResponse;
 import com.shiyinxli.taskmanager.entity.Task;
+import com.shiyinxli.taskmanager.entity.TaskStatus;
 import com.shiyinxli.taskmanager.service.TaskService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -43,5 +44,12 @@ public class TaskController {
     public String deleteTask(@PathVariable Long id){
         taskService.deleteTask(id);
         return "Task deleted successfully";
+    }
+
+    @GetMapping("/status/{status}")
+    public List<TaskResponse> getTasksByStatus(
+            @PathVariable TaskStatus status
+            ){
+        return taskService.getTasksByStatus(status);
     }
 }

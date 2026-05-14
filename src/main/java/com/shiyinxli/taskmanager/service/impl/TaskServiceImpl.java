@@ -3,6 +3,7 @@ package com.shiyinxli.taskmanager.service.impl;
 import com.shiyinxli.taskmanager.dto.TaskRequest;
 import com.shiyinxli.taskmanager.dto.TaskResponse;
 import com.shiyinxli.taskmanager.entity.Task;
+import com.shiyinxli.taskmanager.entity.TaskStatus;
 import com.shiyinxli.taskmanager.exception.TaskNotFoundException;
 import com.shiyinxli.taskmanager.repository.TaskRepository;
 import com.shiyinxli.taskmanager.service.TaskService;
@@ -62,6 +63,14 @@ public class TaskServiceImpl implements TaskService {
         Task task = taskRepository.findById(id)
                 .orElseThrow(() -> new TaskNotFoundException(id));
         taskRepository.delete(task);
+    }
+
+    @Override
+    public List<TaskResponse> getTasksByStatus(TaskStatus status){
+        return taskRepository.findByStatus(status)
+                .stream()
+                .map(this::mapToResponse)
+                .toList();
     }
 
     private TaskResponse mapToResponse(Task task){
