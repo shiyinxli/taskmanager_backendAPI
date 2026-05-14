@@ -13,4 +13,5 @@ public interface TaskService {
     TaskResponse createTask(TaskRequest request);
     //read
     List<TaskResponse> getAllTasks();
+    TaskResponse getTaskById(Long id);
 }

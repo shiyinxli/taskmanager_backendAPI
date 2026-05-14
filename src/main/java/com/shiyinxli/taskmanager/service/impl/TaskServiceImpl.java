@@ -3,6 +3,7 @@ package com.shiyinxli.taskmanager.service.impl;
 import com.shiyinxli.taskmanager.dto.TaskRequest;
 import com.shiyinxli.taskmanager.dto.TaskResponse;
 import com.shiyinxli.taskmanager.entity.Task;
+import com.shiyinxli.taskmanager.exception.TaskNotFoundException;
 import com.shiyinxli.taskmanager.repository.TaskRepository;
 import com.shiyinxli.taskmanager.service.TaskService;
 import lombok.RequiredArgsConstructor;
@@ -34,6 +35,13 @@ public class TaskServiceImpl implements TaskService {
                 .stream()
                 .map(this::mapToResponse)
                 .toList();
+    }
+
+    @Override
+    public TaskResponse getTaskById(Long id){
+        Task task = taskRepository.findById(id)
+                .orElseThrow(() -> new TaskNotFoundException(id));
+        return mapToResponse(task);
     }
     private TaskResponse mapToResponse(Task task){
         return TaskResponse.builder()
