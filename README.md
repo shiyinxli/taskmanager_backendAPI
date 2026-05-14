@@ -30,3 +30,7 @@ GET /api/tasks
 ## Improvements
 - DTO pattern for request/response separation
 - Input validation using Jakarta Validation
+
+## Error Handling
+- Global exception handling using `@RestControllerAdvice`
+- Custom exception responses with proper HTTP status codes

@@ -43,6 +43,19 @@ public class TaskServiceImpl implements TaskService {
                 .orElseThrow(() -> new TaskNotFoundException(id));
         return mapToResponse(task);
     }
+
+    @Override
+    public TaskResponse updateTask(Long id, TaskRequest request){
+        Task task = taskRepository.findById(id)
+                .orElseThrow(() -> new TaskNotFoundException(id));
+        task.setTitle(request.getTitle());
+        task.setDescription(request.getDescription());
+        task.setStatus(request.getStatus());
+        task.setDueDate(request.getDueDate());
+        Task updated = taskRepository.save(task);
+
+        return mapToResponse(updated);
+    }
     private TaskResponse mapToResponse(Task task){
         return TaskResponse.builder()
                 .id(task.getId())
