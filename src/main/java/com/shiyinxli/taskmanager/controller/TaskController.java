@@ -7,6 +7,7 @@ import com.shiyinxli.taskmanager.entity.TaskStatus;
 import com.shiyinxli.taskmanager.service.TaskService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -51,5 +52,13 @@ public class TaskController {
             @PathVariable TaskStatus status
             ){
         return taskService.getTasksByStatus(status);
+    }
+
+    @GetMapping("/paginated")
+    public Page<TaskResponse> getTasksPaginated(
+            @RequestParam int page,
+            @RequestParam int size
+    ){
+        return taskService.getTasksPaginated(page, size);
     }
 }

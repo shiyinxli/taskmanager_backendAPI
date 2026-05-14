@@ -8,6 +8,8 @@ import com.shiyinxli.taskmanager.exception.TaskNotFoundException;
 import com.shiyinxli.taskmanager.repository.TaskRepository;
 import com.shiyinxli.taskmanager.service.TaskService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -71,6 +73,12 @@ public class TaskServiceImpl implements TaskService {
                 .stream()
                 .map(this::mapToResponse)
                 .toList();
+    }
+
+    @Override
+    public Page<TaskResponse> getTasksPaginated(int page, int size){
+        return taskRepository.findAll(PageRequest.of(page,size))
+                .map(this::mapToResponse);
     }
 
     private TaskResponse mapToResponse(Task task){
