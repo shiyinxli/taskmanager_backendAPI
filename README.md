@@ -26,3 +26,7 @@ POST /api/tasks
 
 ### Get All Tasks
 GET /api/tasks
+
+## Improvements
+- DTO pattern for request/response separation
+- Input validation using Jakarta Validation
